@@ -10,13 +10,14 @@ const Game = (props: Props) => {
   const [query, setQuery] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
   const [myData, setMyData] = useState<any[]>([]);
 
-  const randomVideo = GameLogic(exampleData);
+  const gameLogic = GameLogic(exampleData);
 
   return (
     <div className="bg-slate-200 h-screen">
       <div className={`${styles.innerWidth} py-8`}>
+        <img src={gameLogic.correctVideoThumbnail.url} alt="" />
         <p className="text-slate-900 text-2xl font-semibold">
-          {randomVideo.snippet.title}
+          {gameLogic.correctVideoTitle}
         </p>
       </div>
     </div>

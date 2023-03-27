@@ -77,9 +77,11 @@ export interface High {
 
 export const GameLogic = (response: SearchListResponse) => {
   // const videos = response.items;
-  const randomVideo = getRandomVideo(response);
+  const correctVideo = getRandomVideo(response);
+  const correctVideoTitle = getVideoTitle(correctVideo);
+  const correctVideoThumbnail = getVideoThumbnail(correctVideo);
 
-  return randomVideo;
+  return { correctVideo, correctVideoTitle, correctVideoThumbnail };
 };
 
 const getRandomVideo = (response: SearchListResponse) => {
@@ -89,6 +91,14 @@ const getRandomVideo = (response: SearchListResponse) => {
   console.log(randomIndex, randomVideo.snippet.title);
 
   return randomVideo;
+};
+
+const getVideoTitle = (video: Item) => {
+  return video.snippet.title;
+};
+
+const getVideoThumbnail = (video: Item) => {
+  return video.snippet.thumbnails.high;
 };
 
 // export default GameLogic;
