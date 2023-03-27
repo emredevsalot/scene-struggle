@@ -108,11 +108,16 @@ const getVideoThumbnail = (video: Item) => {
 
 const getWrongAnswers = (videos: Item[], correctVideo: Item) => {
   const wrongAnswers = [];
+  const wrongVideosId = [];
+  const correctId = correctVideo.id.videoId;
   let i = 0;
 
   while (i < 3) {
     const randomVideo = getRandomVideo(videos);
-    if (randomVideo.id.videoId !== correctVideo.id.videoId) {
+    const randomId = randomVideo.id.videoId;
+
+    if (randomId !== correctId && wrongVideosId.indexOf(randomId) === -1) {
+      wrongVideosId.push(randomVideo.id.videoId);
       wrongAnswers.push(randomVideo.snippet.title);
       i++;
     }
