@@ -2,6 +2,7 @@ import styles from "@/styles";
 import { fetchFromAPI } from "@/utils/fetchFromAPI";
 import { useEffect, useState } from "react";
 import exampleData from "@/utils/exampleData.json";
+import { GameLogic } from "./gameLogic";
 
 type Props = {};
 
@@ -9,13 +10,22 @@ const Game = (props: Props) => {
   const [query, setQuery] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
   const [myData, setMyData] = useState<any[]>([]);
 
-  // TODOS
-  // shorts ise alma
-  // check maxResults
+  const randomVideo = GameLogic(exampleData);
+
+  return (
+    <div className="bg-slate-200 h-screen">
+      <div className={`${styles.innerWidth} py-8`}>
+        <p className="text-slate-900 text-2xl font-semibold">
+          {randomVideo.snippet.title}
+        </p>
+      </div>
+    </div>
+  );
 
   // useEffect(() => {
   //   let ignore = false;
 
+  // search videos
   //   // fetchFromAPI(`search?part=snippet&q=${query}`).then((data) => {
   //   //   if (!ignore) {
   //   //     setMyData(data.items);
@@ -23,6 +33,7 @@ const Game = (props: Props) => {
   //   //   }
   //   // });
 
+  // get videos of a channel
   //   fetchFromAPI(`search?part=snippet&channelId=${query}&order=date`).then(
   //     (data) => {
   //       setMyData(data.items);
@@ -31,26 +42,6 @@ const Game = (props: Props) => {
   //   console.log(query);
   //   console.log(myData);
   // }, [query]);
-
-  return (
-    <div className={`${styles.innerWidth}`}>
-      <button onClick={() => setQuery("coding")}>Coding</button>
-
-      {exampleData.items.map((item, index) => (
-        <div key={index}>
-          {
-            <>
-              <p>{item?.snippet?.title}</p>
-              {/* <a href={`https://www.youtube.com/watch?v=${item.id.videoId}`}>
-                {item.id.videoId}
-              </a>
-              <img src={item?.snippet?.thumbnails?.medium?.url} alt="" /> */}
-            </>
-          }
-        </div>
-      ))}
-    </div>
-  );
 };
 
 export default Game;

@@ -8,10 +8,10 @@ const Navbar = (props: Props) => {
       <div
         className={`${styles.innerWidth} flex items-center justify-between gap-8 py-8 `}
       >
-        <h2 className="text-2xl font-extrabold text-black">
+        <h2 className="text-2xl font-extrabold text-slate-900">
           <a href="/">Scene-Struggle</a>
         </h2>
-        <h2 className="text-2xl font-extrabold text-black">
+        <h2 className="text-2xl font-extrabold text-slate-900">
           <a href="/game">Game</a>
         </h2>
       </div>
