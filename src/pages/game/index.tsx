@@ -19,6 +19,9 @@ const Game = (props: Props) => {
         <p className="text-slate-900 text-2xl font-semibold">
           {gameLogic.correctVideoTitle}
         </p>
+        {gameLogic.wrongAnswers.map((item) => (
+          <p key={item}>{item}</p>
+        ))}
       </div>
     </div>
   );

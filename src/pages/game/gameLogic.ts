@@ -80,8 +80,14 @@ export const GameLogic = (response: SearchListResponse) => {
   const correctVideo = getRandomVideo(videos);
   const correctVideoTitle = getVideoTitle(correctVideo);
   const correctVideoThumbnail = getVideoThumbnail(correctVideo);
+  const wrongAnswers = getWrongAnswers(videos, correctVideo);
 
-  return { correctVideo, correctVideoTitle, correctVideoThumbnail };
+  return {
+    correctVideo,
+    correctVideoTitle,
+    correctVideoThumbnail,
+    wrongAnswers,
+  };
 };
 
 const getRandomVideo = (videos: Item[]) => {
@@ -100,7 +106,20 @@ const getVideoThumbnail = (video: Item) => {
   return video.snippet.thumbnails.high;
 };
 
-// const getWrongAnswers =
+const getWrongAnswers = (videos: Item[], correctVideo: Item) => {
+  const wrongAnswers = [];
+  let i = 0;
+
+  while (i < 3) {
+    const randomVideo = getRandomVideo(videos);
+    if (randomVideo.id.videoId !== correctVideo.id.videoId) {
+      wrongAnswers.push(randomVideo.snippet.title);
+      i++;
+    }
+  }
+
+  return wrongAnswers;
+};
 
 // export default GameLogic;
 
