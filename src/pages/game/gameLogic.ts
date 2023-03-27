@@ -71,21 +71,20 @@ export interface High {
 
 // MINIMUM VIABLE GAME
 //+ Pick a random video
-// Take its title as correct answer
+//+ Take its title as correct answer
 // Pick 3 more titles that's not same as the correct answer
 // Show them and let the player guess the correct answer
 
 export const GameLogic = (response: SearchListResponse) => {
-  // const videos = response.items;
-  const correctVideo = getRandomVideo(response);
+  const videos = response.items;
+  const correctVideo = getRandomVideo(videos);
   const correctVideoTitle = getVideoTitle(correctVideo);
   const correctVideoThumbnail = getVideoThumbnail(correctVideo);
 
   return { correctVideo, correctVideoTitle, correctVideoThumbnail };
 };
 
-const getRandomVideo = (response: SearchListResponse) => {
-  const videos = response.items;
+const getRandomVideo = (videos: Item[]) => {
   const randomIndex = Math.floor(Math.random() * videos.length);
   const randomVideo = videos[randomIndex];
   console.log(randomIndex, randomVideo.snippet.title);
@@ -100,6 +99,8 @@ const getVideoTitle = (video: Item) => {
 const getVideoThumbnail = (video: Item) => {
   return video.snippet.thumbnails.high;
 };
+
+// const getWrongAnswers =
 
 // export default GameLogic;
 
