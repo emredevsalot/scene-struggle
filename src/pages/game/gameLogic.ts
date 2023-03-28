@@ -81,11 +81,17 @@ export const GameLogic = (response: SearchListResponse) => {
   const correctVideoTitle = getVideoTitle(correctVideo);
   const correctVideoThumbnail = getVideoThumbnail(correctVideo);
   const wrongTitles = getWrongAnswers(videos, correctVideo);
-
   const answers = [correctVideoTitle, ...wrongTitles];
   shuffleArray(answers);
 
+  const allTitles: string[][] = [[]];
+
+  const { randomVideos, allAnswers } = getRandomVideos(videos, 6);
+
   return {
+    allTitles,
+    randomVideos,
+    allAnswers,
     correctVideo,
     correctVideoTitle,
     correctVideoThumbnail,
@@ -95,11 +101,41 @@ export const GameLogic = (response: SearchListResponse) => {
 };
 
 const getRandomVideo = (videos: Item[]) => {
-  const randomIndex = Math.floor(Math.random() * videos.length);
-  const randomVideo = videos[randomIndex];
-  console.log(randomIndex, randomVideo.snippet.title);
+  let isShorts = true;
+  let randomIndex = 0;
 
-  return randomVideo;
+  while (isShorts) {
+    randomIndex = Math.floor(Math.random() * videos.length);
+    isShorts = videos[randomIndex].snippet.title.includes("shorts");
+  }
+
+  return videos[randomIndex];
+
+  // return randomVideo;
+};
+
+const getRandomVideos = (videos: Item[], amount: number) => {
+  const randomVideos: Item[] = [];
+  const randomVideoTitles: string[] = [];
+  const allAnswers: string[][] = [];
+  let j = 0;
+
+  while (j < amount) {
+    const randomVideo = getRandomVideo(videos);
+    const randomId = randomVideo.id.videoId;
+
+    if (randomVideos.indexOf(randomVideo) === -1) {
+      randomVideos.push(randomVideo);
+      j++;
+
+      const wrongAnswers = getWrongAnswers(videos, randomVideo);
+      const answers = [randomVideo.snippet.title, ...wrongAnswers];
+      shuffleArray(answers);
+      allAnswers.push(answers);
+    }
+  }
+
+  return { randomVideos, allAnswers };
 };
 
 const getVideoTitle = (video: Item) => {
