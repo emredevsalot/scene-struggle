@@ -1,14 +1,17 @@
 import styles from "@/styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import exampleData from "@/utils/exampleData.json";
-import { getRandomVideos, Item } from "./randomVideos";
+import { getRandomVideos, Item, SearchListResponse } from "./randomVideos";
+import { fetchFromAPI } from "@/utils/fetchFromAPI";
 
 type Props = {};
 
 const TOTAL_QUESTIONS = 6;
 
 const Game = (props: Props) => {
-  // const [query, setQuery] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
+  // const [channelId, setChannelId] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
+  const [channelId, setChannelId] = useState("UClb90NQQcskPUGDIXsQEz5Q");
+  const [response, setResponse] = useState<SearchListResponse>();
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -16,6 +19,27 @@ const Game = (props: Props) => {
   const [lastAnswer, setLastAnswer] = useState(false);
   const [randomVideos, setRandomVideos] = useState<Item[]>([]);
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
+
+  useEffect(() => {
+    let ignore = false;
+
+    // search videos
+    // fetchFromAPI(`search?part=snippet&q=${channelId}`).then((data) => {
+    //   if (!ignore) {
+    //     setMyData(data.items);
+    //     console.log(myData);
+    //   }
+    // });
+
+    // get videos of a channel
+    fetchFromAPI(`search?part=snippet&channelId=${channelId}&order=date`).then(
+      (data) => {
+        setResponse(data);
+      }
+    );
+    console.log(channelId);
+    console.log(response);
+  }, [channelId]);
 
   const buttonState = (answer: boolean) => {
     if (userAnswered !== questionNumber + 1)
@@ -34,7 +58,7 @@ const Game = (props: Props) => {
     setUserAnswered(0);
     setLastAnswer(false);
     const { randomVideos, allAnswers } = getRandomVideos(
-      exampleData,
+      response!,
       TOTAL_QUESTIONS
     );
     setRandomVideos(randomVideos);
@@ -144,27 +168,6 @@ const Game = (props: Props) => {
       </div>
     </div>
   );
-
-  // useEffect(() => {
-  //   let ignore = false;
-
-  // search videos
-  //   // fetchFromAPI(`search?part=snippet&q=${query}`).then((data) => {
-  //   //   if (!ignore) {
-  //   //     setMyData(data.items);
-  //   //     console.log(myData);
-  //   //   }
-  //   // });
-
-  // get videos of a channel
-  //   fetchFromAPI(`search?part=snippet&channelId=${query}&order=date`).then(
-  //     (data) => {
-  //       setMyData(data.items);
-  //     }
-  //   );
-  //   console.log(query);
-  //   console.log(myData);
-  // }, [query]);
 };
 
 export default Game;
