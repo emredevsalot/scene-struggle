@@ -25,7 +25,7 @@ const Game = (props: Props) => {
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
 
   const buttonState = (answer: boolean) => {
-    if (userAnswers !== number + 1) return "bg-slate-800 hover:bg-slate-800";
+    if (userAnswers !== number + 1) return "bg-slate-700 hover:bg-slate-800";
     if (answer) {
       return "bg-green-800 hover:bg-green-800";
     } else {
@@ -83,7 +83,9 @@ const Game = (props: Props) => {
 
   return (
     <div className="bg-slate-200 h-screen">
-      <div className={`${styles.innerWidth} py-8 flex`}>
+      <div
+        className={`${styles.innerWidth} py-8 flex gap-4 justify-center align-middle`}
+      >
         {gameOver && (
           <button
             className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
@@ -113,9 +115,9 @@ const Game = (props: Props) => {
                 answer === randomVideos[number].snippet.title ? (
                   <button
                     key={index}
-                    className={`bg-slate-600 hover:bg-slate-700 ${buttonState(
+                    className={` ${buttonState(
                       true
-                    )} text-white font-normal py-2 px-4 rounded"`}
+                    )} text-white font-normal py-2 px-4 rounded`}
                     disabled={userAnswers !== number ? true : false}
                     onClick={() => checkAnswer(true)}
                   >
@@ -124,9 +126,9 @@ const Game = (props: Props) => {
                 ) : (
                   <button
                     key={index}
-                    className={`bg-slate-600 hover:bg-slate-700 ${buttonState(
+                    className={` ${buttonState(
                       false
-                    )} text-white font-normal py-2 px-4 rounded"`}
+                    )} text-white font-normal py-2 px-4 rounded`}
                     disabled={userAnswers !== number ? true : false}
                     onClick={() => checkAnswer(false)}
                   >
