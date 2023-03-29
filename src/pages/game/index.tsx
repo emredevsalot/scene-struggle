@@ -1,31 +1,25 @@
 import styles from "@/styles";
-import { fetchFromAPI } from "@/utils/fetchFromAPI";
-import React, { MouseEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import exampleData from "@/utils/exampleData.json";
-import { GameLogic, Item } from "./gameLogic";
+import { getRandomVideos, Item } from "./randomVideos";
 
 type Props = {};
-
-export type Video = {
-  videoId: string;
-  correctTitle: string;
-  incorrectTitles: string[];
-};
 
 const TOTAL_QUESTIONS = 6;
 
 const Game = (props: Props) => {
   // const [query, setQuery] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
-  const [userAnswers, setUserAnswers] = useState(0);
-  const [number, setNumber] = useState(0);
-  const [score, setScore] = useState(0);
   const [gameOver, setGameOver] = useState(true);
+  const [score, setScore] = useState(0);
+  const [questionNumber, setQuestionNumber] = useState(0);
+  const [userAnswered, setUserAnswered] = useState(0);
   const [lastAnswer, setLastAnswer] = useState(false);
   const [randomVideos, setRandomVideos] = useState<Item[]>([]);
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
 
   const buttonState = (answer: boolean) => {
-    if (userAnswers !== number + 1) return "bg-slate-700 hover:bg-slate-800";
+    if (userAnswered !== questionNumber + 1)
+      return "bg-slate-700 hover:bg-slate-800";
     if (answer) {
       return "bg-green-800 hover:bg-green-800";
     } else {
@@ -33,31 +27,18 @@ const Game = (props: Props) => {
     }
   };
 
-  // const {
-  //   randomVideos,
-  //   allTitles,
-  //   correctVideo,
-  //   correctVideoTitle,
-  //   correctVideoThumbnail,
-  //   wrongTitles,
-  //   answers,
-  // } = GameLogic(exampleData);
-
-  // console.log("hey");
-
   const startGame = () => {
     setGameOver(false);
-    setNumber(0);
-    const { randomVideos, allAnswers } = GameLogic(exampleData);
+    setScore(0);
+    setQuestionNumber(0);
+    setUserAnswered(0);
+    setLastAnswer(false);
+    const { randomVideos, allAnswers } = getRandomVideos(
+      exampleData,
+      TOTAL_QUESTIONS
+    );
     setRandomVideos(randomVideos);
     setAllAnswers(allAnswers);
-
-    console.log(randomVideos);
-    console.log(allAnswers[number]);
-
-    setScore(0);
-    setUserAnswers(0);
-    // setNumber(0);
   };
 
   const checkAnswer = (answer: boolean) => {
@@ -69,22 +50,22 @@ const Game = (props: Props) => {
       setLastAnswer(false);
     }
     console.log("pressed");
-    setUserAnswers((num) => num + 1);
+    setUserAnswered((num) => num + 1);
   };
 
   const nextQuestion = () => {
-    const nextQ = number + 1;
+    const nextQ = questionNumber + 1;
     if (nextQ === TOTAL_QUESTIONS) {
       setGameOver(true);
     } else {
-      setNumber(nextQ);
+      setQuestionNumber(nextQ);
     }
   };
 
   return (
-    <div className="bg-slate-200 h-screen">
+    <div className="bg-slate-200 min-h-[90vh]">
       <div
-        className={`${styles.innerWidth} py-8 flex gap-4 justify-center align-middle`}
+        className={`${styles.innerWidth} flex flex-col md:flex-row py-8 gap-4 justify-center align-middle`}
       >
         {gameOver && (
           <button
@@ -94,52 +75,46 @@ const Game = (props: Props) => {
             Start
           </button>
         )}
+        {/* Game started */}
         {!gameOver ? (
           <>
             <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
-              <div className="bg-slate-200  overflow-hidden">
+              <div className="bg-slate-200  overflow-hidden rounded">
                 <img
-                  className="blur-lg"
-                  src={randomVideos[number].snippet.thumbnails.high.url}
+                  // className="blur-lg"
+                  src={randomVideos[questionNumber].snippet.thumbnails.high.url}
                   alt=""
                 />
               </div>
             </div>
-            {/* <p className="p-8">{randomVideos[number].snippet.title}</p> */}
             <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
-              <p>Score: {score}</p>
-              <p>
-                Question: {number + 1}/{TOTAL_QUESTIONS}
-              </p>
-              {allAnswers[number].map((answer, index) =>
-                answer === randomVideos[number].snippet.title ? (
-                  <button
-                    key={index}
-                    className={` ${buttonState(
-                      true
-                    )} text-white font-normal py-2 px-4 rounded`}
-                    disabled={userAnswers !== number ? true : false}
-                    onClick={() => checkAnswer(true)}
-                  >
-                    {answer}
-                  </button>
-                ) : (
-                  <button
-                    key={index}
-                    className={` ${buttonState(
-                      false
-                    )} text-white font-normal py-2 px-4 rounded`}
-                    disabled={userAnswers !== number ? true : false}
-                    onClick={() => checkAnswer(false)}
-                  >
-                    {answer}
-                  </button>
-                )
-              )}
+              <div className="flex justify-between">
+                <p>Score: {score}</p>
+                <p>
+                  Question: {questionNumber + 1}/{TOTAL_QUESTIONS}
+                </p>
+              </div>
+              {allAnswers[questionNumber].map((answer, index) => (
+                <button
+                  key={index}
+                  className={`${buttonState(
+                    answer === randomVideos[questionNumber].snippet.title
+                  )} text-white font-normal py-2 px-4 rounded`}
+                  disabled={userAnswered !== questionNumber ? true : false}
+                  onClick={() =>
+                    checkAnswer(
+                      answer === randomVideos[questionNumber].snippet.title
+                    )
+                  }
+                >
+                  {answer}
+                </button>
+              ))}
 
+              {/* Question answered */}
               {!gameOver &&
-                userAnswers === number + 1 &&
-                number !== TOTAL_QUESTIONS - 1 && (
+                userAnswered === questionNumber + 1 &&
+                questionNumber !== TOTAL_QUESTIONS - 1 && (
                   <>
                     <p>{lastAnswer ? "Correct!✔️" : "Wrong!❌"}</p>
                     <button
@@ -151,7 +126,8 @@ const Game = (props: Props) => {
                   </>
                 )}
 
-              {userAnswers === TOTAL_QUESTIONS && (
+              {/* Last question answered */}
+              {userAnswered === TOTAL_QUESTIONS && (
                 <>
                   <p>{lastAnswer ? "Correct!✔️" : "Wrong!❌"}</p>
                   <button
