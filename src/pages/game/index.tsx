@@ -11,7 +11,7 @@ const TOTAL_QUESTIONS = 6;
 const Game = (props: Props) => {
   // const [channelId, setChannelId] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
   const [channelId, setChannelId] = useState("UClb90NQQcskPUGDIXsQEz5Q");
-  const [response, setResponse] = useState<SearchListResponse>();
+  const [response, setResponse] = useState<Item[]>();
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -37,8 +37,8 @@ const Game = (props: Props) => {
         setResponse(data);
       }
     );
-    console.log(channelId);
-    console.log(response);
+    // console.log(channelId);
+    // console.log(response);
   }, [channelId]);
 
   const buttonState = (answer: boolean) => {

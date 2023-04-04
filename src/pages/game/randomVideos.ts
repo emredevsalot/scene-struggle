@@ -62,12 +62,7 @@ export interface High {
 // check maxResults in the API
 // Fix "&" changes to "&amp" in the title
 
-export const getRandomVideos = (
-  response: SearchListResponse,
-  amount: number
-) => {
-  const videos = response.items;
-
+export const getRandomVideos = (videos: Item[], amount: number) => {
   const randomVideos: Item[] = [];
   const allAnswers: string[][] = [];
   let j = 0;
