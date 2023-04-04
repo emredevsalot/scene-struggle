@@ -103,10 +103,13 @@ const Game = (props: Props) => {
         {!gameOver ? (
           <>
             <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
-              <div className="bg-slate-200  overflow-hidden rounded">
+              <div className="bg-slate-200 overflow-hidden rounded">
                 <img
                   // className="blur-lg"
-                  src={randomVideos[questionNumber].snippet.thumbnails.high.url}
+                  className="pixelated w-full h-full"
+                  src={
+                    randomVideos[questionNumber].snippet.thumbnails.default.url
+                  }
                   alt=""
                 />
               </div>
