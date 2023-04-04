@@ -90,7 +90,7 @@ const getRandomVideo = (videos: Item[]) => {
 
   while (isShorts) {
     randomIndex = Math.floor(Math.random() * videos.length);
-    isShorts = videos[randomIndex].snippet.title.includes("shorts");
+    isShorts = videos[randomIndex].snippet.title.includes("horts");
   }
 
   return videos[randomIndex];
