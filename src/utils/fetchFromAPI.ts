@@ -7,6 +7,8 @@ const options = {
   params: {
     maxResults: "50",
     pageToken: "",
+    part: "",
+    id: "",
   },
   headers: {
     "X-RapidAPI-Key": import.meta.env.VITE_REACT_APP_RAPID_API_KEY,
@@ -14,28 +16,43 @@ const options = {
   },
 };
 
-export const fetchFromAPI = async (url: string) => {
-  const MAX_PAGE_COUNT = 3;
-  let all_videos: any[] = [];
+export const fetchVideosFromChannel = async (
+  url: string,
+  maxPageCount: number
+) => {
+  let videos: any[] = [];
   let i = 0;
-  let response_data: SearchListResponse | undefined = undefined;
+  let responseData: SearchListResponse | undefined = undefined;
 
   while (true) {
     console.log("entered while(true)");
     i++;
-    if (response_data) {
-      options.params.pageToken = response_data.nextPageToken;
+    if (responseData) {
+      options.params.pageToken = responseData.nextPageToken;
     }
     const response = await axios.get(`${BASE_URL}/${url}`, options);
-    response_data = response.data;
-    all_videos = all_videos.concat(response_data?.items);
+    responseData = response.data;
+    videos = videos.concat(responseData?.items);
 
     // Exit condition (no more pagination thing to repeat)
-    if (!("nextPageToken" in response_data!) || i == MAX_PAGE_COUNT) {
-      console.log(all_videos);
+    if (!("nextPageToken" in responseData!) || i == maxPageCount) {
+      console.log(videos);
 
       break;
     }
   }
-  return all_videos;
+  return videos;
+};
+
+// Get the channel information from the video ID
+export const fetchChannelInfo = async (videoId: string) => {
+  options.params.part = "snippet";
+  options.params.id = videoId;
+  let channelInfo: SearchListResponse | undefined = undefined;
+
+  const response = await axios.get(`${BASE_URL}/videos`, options);
+  channelInfo = response.data;
+
+  return channelInfo;
+  // return response.data.items[0].snippet.channelId;
 };

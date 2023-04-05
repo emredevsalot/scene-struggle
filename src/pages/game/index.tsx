@@ -2,7 +2,7 @@ import styles from "@/styles";
 import { useEffect, useState } from "react";
 import exampleData from "@/utils/exampleData.json";
 import { getRandomVideos, Item, SearchListResponse } from "./randomVideos";
-import { fetchFromAPI } from "@/utils/fetchFromAPI";
+import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 
 type Props = {};
 
@@ -32,11 +32,12 @@ const Game = (props: Props) => {
     // });
 
     // get videos of a channel
-    fetchFromAPI(`search?part=snippet&channelId=${channelId}&order=date`).then(
-      (data) => {
-        setResponse(data);
-      }
-    );
+    fetchVideosFromChannel(
+      `search?part=snippet&channelId=${channelId}&order=date`,
+      3
+    ).then((videos) => {
+      setResponse(videos);
+    });
     // console.log(channelId);
     // console.log(response);
   }, [channelId]);
