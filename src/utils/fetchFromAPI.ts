@@ -7,7 +7,7 @@ const options = {
   params: {
     maxResults: "50",
     pageToken: "",
-    part: "",
+    part: "snippet",
     id: "",
   },
   headers: {
