@@ -1,6 +1,7 @@
 import styles from "@/styles";
 import { fetchChannelInfo } from "@/utils/fetchFromAPI";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -79,7 +80,13 @@ const Homepage = (props: Props) => {
         {result && <p>{result}</p>}
         {channelId && <p>Channel Id: {channelId}</p>}
         {channelTitle && <p>Channel Title: {channelTitle}</p>}
-        {/* Play games about this channel button (route) */}
+        {channelId && (
+          <Link to={`/game/${channelId}`}>
+            <button className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded">
+              Go to games about this channel
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );

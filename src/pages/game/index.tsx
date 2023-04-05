@@ -3,14 +3,17 @@ import { useEffect, useState } from "react";
 import exampleData from "@/utils/exampleData.json";
 import { getRandomVideos, Item, SearchListResponse } from "./randomVideos";
 import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
+import { useParams } from "react-router-dom";
+import he from "he";
 
 type Props = {};
 
 const TOTAL_QUESTIONS = 6;
 
 const Game = (props: Props) => {
+  let { channelId } = useParams();
   // const [channelId, setChannelId] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
-  const [channelId, setChannelId] = useState("UClb90NQQcskPUGDIXsQEz5Q");
+  // const [channelId, setChannelId] = useState("UClb90NQQcskPUGDIXsQEz5Q");
   const [response, setResponse] = useState<Item[]>();
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
@@ -135,7 +138,8 @@ const Game = (props: Props) => {
                     )
                   }
                 >
-                  {answer}
+                  {/* {answer} */}
+                  {he.decode(answer)}
                 </button>
               ))}
 

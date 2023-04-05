@@ -10,7 +10,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/game" element={<Game />} />
+          <Route path="/game/:channelId" element={<Game />} />
         </Routes>
       </div>
     </BrowserRouter>
