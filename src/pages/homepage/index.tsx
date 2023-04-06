@@ -5,12 +5,10 @@ import { Link } from "react-router-dom";
 
 type Props = {};
 
-// Get the video URL
-// Get the video ID from the URL
-// If it's valid ID, get the channel ID
+const DEV_URL = "https://www.youtube.com/watch?v=NtfbWkxJTHw";
 
 const Homepage = (props: Props) => {
-  const [videoUrl, setVideoUrl] = useState<string>("");
+  const [videoUrl, setVideoUrl] = useState<string>(DEV_URL);
   const [channelId, setChannelId] = useState<string>("");
   const [channelTitle, setChannelTitle] = useState<string>("");
   const [result, setResult] = useState<string>("");
@@ -67,13 +65,14 @@ const Homepage = (props: Props) => {
           id="username"
           type="text"
           placeholder="Video URL"
-          defaultValue="https://www.youtube.com/watch?v=NtfbWkxJTHw"
+          defaultValue={DEV_URL}
           onChange={(e) => setVideoUrl(e.target.value)}
         ></input>
         <button
           className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded"
           onClick={() => handleCheckVideo(videoUrl)}
-          disabled={videoUrl === ""}
+          // PROD
+          // disabled={videoUrl === ""}
         >
           Get the channel
         </button>
@@ -83,7 +82,7 @@ const Homepage = (props: Props) => {
         {channelId && (
           <Link to={`/game/${channelId}`}>
             <button className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded">
-              Go to games about this channel
+              {`Go to games about ${channelTitle}`}
             </button>
           </Link>
         )}

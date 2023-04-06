@@ -11,9 +11,6 @@ const Navbar = (props: Props) => {
         <h2 className="text-2xl font-extrabold text-slate-900">
           <a href="/">Scene-Struggle</a>
         </h2>
-        <h2 className="text-2xl font-extrabold text-slate-900">
-          <a href="/game">Game</a>
-        </h2>
       </div>
     </nav>
   );

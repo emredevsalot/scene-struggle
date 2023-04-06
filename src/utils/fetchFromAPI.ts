@@ -1,4 +1,4 @@
-import { SearchListResponse } from "@/pages/game/randomVideos";
+import { ResponseType } from "@/utils/randomVideos";
 import axios from "axios";
 
 const BASE_URL = "https://youtube-v31.p.rapidapi.com";
@@ -22,7 +22,7 @@ export const fetchVideosFromChannel = async (
 ) => {
   let videos: any[] = [];
   let i = 0;
-  let responseData: SearchListResponse | undefined = undefined;
+  let responseData: ResponseType | undefined = undefined;
 
   while (true) {
     console.log("entered while(true)");
@@ -48,11 +48,10 @@ export const fetchVideosFromChannel = async (
 export const fetchChannelInfo = async (videoId: string) => {
   options.params.part = "snippet";
   options.params.id = videoId;
-  let channelInfo: SearchListResponse | undefined = undefined;
+  let channelInfo: ResponseType | undefined = undefined;
 
   const response = await axios.get(`${BASE_URL}/videos`, options);
   channelInfo = response.data;
 
   return channelInfo;
-  // return response.data.items[0].snippet.channelId;
 };

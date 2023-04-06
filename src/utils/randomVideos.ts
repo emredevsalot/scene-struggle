@@ -1,4 +1,4 @@
-export interface SearchListResponse {
+export interface ResponseType {
   kind: string;
   nextPageToken: string;
   regionCode: string;
@@ -56,11 +56,6 @@ export interface High {
   width: number;
   height: number;
 }
-
-// TODOS
-// don't include videos that have "shorts" in the title
-// check maxResults in the API
-// Fix "&" changes to "&amp" in the title
 
 export const getRandomVideos = (videos: Item[], amount: number) => {
   const randomVideos: Item[] = [];

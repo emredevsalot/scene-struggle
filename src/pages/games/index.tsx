@@ -1,7 +1,6 @@
 import styles from "@/styles";
 import { useEffect, useState } from "react";
-import exampleData from "@/utils/exampleData.json";
-import { getRandomVideos, Item, SearchListResponse } from "./randomVideos";
+import { getRandomVideos, Item } from "@/utils/randomVideos";
 import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 import { useParams } from "react-router-dom";
 import he from "he";
@@ -10,10 +9,8 @@ type Props = {};
 
 const TOTAL_QUESTIONS = 6;
 
-const Game = (props: Props) => {
+const Games = (props: Props) => {
   let { channelId } = useParams();
-  // const [channelId, setChannelId] = useState("UC4-bGrwiQOCVpvQwEGWaqGA");
-  // const [channelId, setChannelId] = useState("UClb90NQQcskPUGDIXsQEz5Q");
   const [response, setResponse] = useState<Item[]>();
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
@@ -24,16 +21,6 @@ const Game = (props: Props) => {
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
 
   useEffect(() => {
-    let ignore = false;
-
-    // search videos
-    // fetchFromAPI(`search?part=snippet&q=${channelId}`).then((data) => {
-    //   if (!ignore) {
-    //     setMyData(data.items);
-    //     console.log(myData);
-    //   }
-    // });
-
     // get videos of a channel
     fetchVideosFromChannel(
       `search?part=snippet&channelId=${channelId}&order=date`,
@@ -178,4 +165,4 @@ const Game = (props: Props) => {
   );
 };
 
-export default Game;
+export default Games;
