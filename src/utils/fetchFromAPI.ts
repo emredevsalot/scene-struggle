@@ -1,4 +1,4 @@
-import { ResponseType } from "@/utils/randomVideos";
+import { YoutubeResponseType } from "@/types";
 import axios from "axios";
 
 const BASE_URL = "https://youtube-v31.p.rapidapi.com";
@@ -22,7 +22,7 @@ export const fetchVideosFromChannel = async (
 ) => {
   let videos: any[] = [];
   let i = 0;
-  let responseData: ResponseType | undefined = undefined;
+  let responseData: YoutubeResponseType | undefined = undefined;
 
   while (true) {
     console.log("entered while(true)");
@@ -48,7 +48,7 @@ export const fetchVideosFromChannel = async (
 export const fetchChannelInfo = async (videoId: string) => {
   options.params.part = "snippet";
   options.params.id = videoId;
-  let channelInfo: ResponseType | undefined = undefined;
+  let channelInfo: YoutubeResponseType | undefined = undefined;
 
   const response = await axios.get(`${BASE_URL}/videos`, options);
   channelInfo = response.data;

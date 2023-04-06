@@ -1,61 +1,20 @@
-export interface ResponseType {
-  kind: string;
-  nextPageToken: string;
-  regionCode: string;
-  pageInfo: PageInfo;
-  items: Item[];
-}
+import { Item } from "@/types";
 
-export interface PageInfo {
-  totalResults: number;
-  resultsPerPage: number;
-}
+export const getVideoIdFromUrl = (url: string) => {
+  // Use a regex to match the video ID from the URL string
+  const regex =
+    /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
+  const match = url.match(regex);
 
-export interface Item {
-  kind: string;
-  id: Id;
-  snippet: Snippet;
-}
-
-export interface Id {
-  kind: string;
-  videoId: string;
-}
-
-export interface Snippet {
-  publishedAt: string;
-  channelId: string;
-  title: string;
-  description: string;
-  thumbnails: Thumbnails;
-  channelTitle: string;
-  liveBroadcastContent: string;
-  publishTime: string;
-}
-
-export interface Thumbnails {
-  default: Default;
-  medium: Medium;
-  high: High;
-}
-
-export interface Default {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface Medium {
-  url: string;
-  width: number;
-  height: number;
-}
-
-export interface High {
-  url: string;
-  width: number;
-  height: number;
-}
+  if (match && match[1]) {
+    const videoId = match[1];
+    return videoId;
+    // return `Video id: ${videoId}`;
+  } else {
+    return null;
+    // return "Invalid video URL. Please enter a valid YouTube video URL.";
+  }
+};
 
 export const getRandomVideos = (videos: Item[], amount: number) => {
   const randomVideos: Item[] = [];

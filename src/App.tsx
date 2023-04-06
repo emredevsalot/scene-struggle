@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./components/navbar";
-import { Homepage, Game } from "./pages";
-import styles from "@/styles";
+import { Homepage, Games } from "./pages";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/game/:channelId" element={<Game />} />
+          <Route path="/games/:channelId" element={<Games />} />
         </Routes>
       </div>
     </BrowserRouter>

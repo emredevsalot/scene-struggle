@@ -1,9 +1,12 @@
-import styles from "@/styles";
 import { useEffect, useState } from "react";
-import { getRandomVideos, Item } from "@/utils/randomVideos";
-import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 import { useParams } from "react-router-dom";
+
 import he from "he";
+
+import styles from "@/styles";
+import { Item } from "@/types";
+import { getRandomVideos } from "@/utils/randomVideos";
+import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 
 type Props = {};
 
@@ -11,7 +14,7 @@ const TOTAL_QUESTIONS = 6;
 
 const Games = (props: Props) => {
   let { channelId } = useParams();
-  const [response, setResponse] = useState<Item[]>();
+  const [videos, setVideos] = useState<Item[]>();
   const [gameOver, setGameOver] = useState(true);
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
@@ -21,15 +24,12 @@ const Games = (props: Props) => {
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
 
   useEffect(() => {
-    // get videos of a channel
     fetchVideosFromChannel(
       `search?part=snippet&channelId=${channelId}&order=date`,
       3
     ).then((videos) => {
-      setResponse(videos);
+      setVideos(videos);
     });
-    // console.log(channelId);
-    // console.log(response);
   }, [channelId]);
 
   const buttonState = (answer: boolean) => {
@@ -49,7 +49,7 @@ const Games = (props: Props) => {
     setUserAnswered(0);
     setLastAnswer(false);
     const { randomVideos, allAnswers } = getRandomVideos(
-      response!,
+      videos!,
       TOTAL_QUESTIONS
     );
     setRandomVideos(randomVideos);

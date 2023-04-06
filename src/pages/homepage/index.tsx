@@ -1,7 +1,9 @@
-import styles from "@/styles";
-import { fetchChannelInfo } from "@/utils/fetchFromAPI";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import styles from "@/styles";
+import { fetchChannelInfo } from "@/utils/fetchFromAPI";
+import { getVideoIdFromUrl } from "@/utils/randomVideos";
 
 type Props = {};
 
@@ -13,24 +15,8 @@ const Homepage = (props: Props) => {
   const [channelTitle, setChannelTitle] = useState<string>("");
   const [result, setResult] = useState<string>("");
 
-  const getIdFromUrl = (url: string) => {
-    // Use a regex to match the video ID from the URL string
-    const regex =
-      /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
-    const match = url.match(regex);
-
-    if (match && match[1]) {
-      const videoId = match[1];
-      return videoId;
-      // return `Video id: ${videoId}`;
-    } else {
-      return null;
-      // return "Invalid video URL. Please enter a valid YouTube video URL.";
-    }
-  };
-
   const handleCheckVideo = async (url: string) => {
-    const videoId = getIdFromUrl(url);
+    const videoId = getVideoIdFromUrl(url);
     if (videoId) {
       setResult("Channel Found");
     } else {
@@ -80,7 +66,7 @@ const Homepage = (props: Props) => {
         {channelId && <p>Channel Id: {channelId}</p>}
         {channelTitle && <p>Channel Title: {channelTitle}</p>}
         {channelId && (
-          <Link to={`/game/${channelId}`}>
+          <Link to={`/games/${channelId}`}>
             <button className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded">
               {`Go to games about ${channelTitle}`}
             </button>
