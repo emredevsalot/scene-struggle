@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import styles from "@/styles";
 import { Item } from "@/types";
 import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
+import Button from "@/components/Button";
+
 import GuessTheCorrectTitle from "./guessTheCorrectTitle";
 import GameTwo from "./gameTwo";
 
@@ -42,26 +44,20 @@ const Games = (props: Props) => {
   };
 
   return (
-    <div className="bg-slate-200 min-h-[90vh]">
-      <div
-        className={`${styles.innerWidth} flex flex-col md:flex-row py-8 gap-4 justify-center align-middle`}
-      >
-        {gameOver &&
-          Object.entries(games).map(([gameId, gameName]) => (
-            <button
-              key={gameId}
-              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-              onClick={() => startGame(gameId)}
-            >
-              {gameName}
-            </button>
-          ))}
+    <div
+      className={`${styles.innerWidth} flex flex-col md:flex-row py-8 gap-4 justify-center align-middle`}
+    >
+      {gameOver &&
+        Object.entries(games).map(([gameId, gameName]) => (
+          <Button key={gameId} onClick={() => startGame(gameId)}>
+            {gameName}
+          </Button>
+        ))}
 
-        {!gameOver && gameId === "guessTheCorrectTitle" && (
-          <GuessTheCorrectTitle videos={videos!} />
-        )}
-        {!gameOver && gameId === "gameTwo" && <GameTwo videos={videos!} />}
-      </div>
+      {!gameOver && gameId === "guessTheCorrectTitle" && (
+        <GuessTheCorrectTitle videos={videos!} />
+      )}
+      {!gameOver && gameId === "gameTwo" && <GameTwo videos={videos!} />}
     </div>
   );
 };

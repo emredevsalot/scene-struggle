@@ -6,7 +6,7 @@ import { Homepage, Games } from "./pages";
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="bg-secondary">
         <Navbar />
         <Routes>
           <Route path="/" element={<Homepage />} />

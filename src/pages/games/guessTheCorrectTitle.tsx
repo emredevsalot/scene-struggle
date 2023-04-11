@@ -4,6 +4,7 @@ import he from "he";
 
 import { Item } from "@/types";
 import { getRandomVideos } from "@/utils/randomVideos";
+import Button from "@/components/Button";
 
 type Props = {
   videos: Item[];
@@ -43,12 +44,11 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
   };
 
   const buttonState = (answer: boolean) => {
-    if (userAnswered !== questionNumber + 1)
-      return "bg-slate-700 hover:bg-slate-800";
+    if (userAnswered !== questionNumber + 1) return;
     if (answer) {
-      return "bg-green-800 hover:bg-green-800";
+      return "bg-green-600";
     } else {
-      return "bg-red-800 hover:bg-red-800";
+      return "bg-red-600";
     }
   };
 
@@ -76,7 +76,7 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
   return (
     <>
       <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
-        <div className="bg-slate-200 overflow-hidden rounded">
+        <div className="overflow-hidden rounded">
           <img
             // className="blur-lg"
             className="pixelated w-full h-full"
@@ -93,18 +93,19 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
           </p>
         </div>
         {allAnswers[questionNumber]?.map((answer, index) => (
-          <button
+          <Button
             key={index}
-            className={`${buttonState(
-              answer === randomVideos[questionNumber].snippet.title
-            )} text-white font-normal py-2 px-4 rounded`}
             disabled={userAnswered !== questionNumber ? true : false}
+            width="w-full"
+            buttonBg={buttonState(
+              answer === randomVideos[questionNumber].snippet.title
+            )}
             onClick={() =>
               checkAnswer(answer === randomVideos[questionNumber].snippet.title)
             }
           >
             {he.decode(answer)}
-          </button>
+          </Button>
         ))}
 
         {/* Question answered */}
@@ -112,12 +113,9 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
           questionNumber !== TOTAL_QUESTIONS - 1 && (
             <>
               <p>{lastAnswer ? "Correct!✔️" : "Wrong!❌"}</p>
-              <button
-                className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-                onClick={nextQuestion}
-              >
+              <Button onClick={nextQuestion} width="w-full">
                 Next Question
-              </button>
+              </Button>
             </>
           )}
 
@@ -125,12 +123,9 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
         {userAnswered === TOTAL_QUESTIONS && (
           <>
             <p>{lastAnswer ? "Correct!✔️" : "Wrong!❌"}</p>
-            <button
-              className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
-              onClick={startGame}
-            >
+            <Button onClick={startGame} width="w-full">
               Play Again
-            </button>
+            </Button>
           </>
         )}
       </div>

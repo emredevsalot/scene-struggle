@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "@/styles";
 import { fetchChannelInfo } from "@/utils/fetchFromAPI";
 import { getVideoIdFromUrl } from "@/utils/randomVideos";
+import Button from "@/components/Button";
 
 type Props = {};
 
@@ -41,38 +42,33 @@ const Homepage = (props: Props) => {
   };
 
   return (
-    <div className="bg-slate-200 min-h-[90vh]">
-      <div
-        className={`${styles.innerWidth} flex flex-col py-8 gap-4 justify-center align-middle`}
+    <div
+      className={`${styles.innerWidth} flex flex-col py-8 gap-4 justify-center items-center`}
+    >
+      <p>Paste a video URL from your favorite youtube channel</p>
+      <input
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="username"
+        type="text"
+        placeholder="Video URL"
+        defaultValue={DEV_URL}
+        onChange={(e) => setVideoUrl(e.target.value)}
+      ></input>
+      <Button
+        onClick={() => handleCheckVideo(videoUrl)}
+        // ADD ON PROD
+        // disabled={videoUrl === ""}
       >
-        <p>Paste a video URL from your favorite youtube channel</p>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="username"
-          type="text"
-          placeholder="Video URL"
-          defaultValue={DEV_URL}
-          onChange={(e) => setVideoUrl(e.target.value)}
-        ></input>
-        <button
-          className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded"
-          onClick={() => handleCheckVideo(videoUrl)}
-          // PROD
-          // disabled={videoUrl === ""}
-        >
-          Get the channel
-        </button>
-        {result && <p>{result}</p>}
-        {channelId && <p>Channel Id: {channelId}</p>}
-        {channelTitle && <p>Channel Title: {channelTitle}</p>}
-        {channelId && (
-          <Link to={`/games/${channelId}`}>
-            <button className="bg-orange-600 hover:bg-orange-700 disabled:bg-slate-600 text-white font-bold py-2 px-4 rounded">
-              {`Go to games about ${channelTitle}`}
-            </button>
-          </Link>
-        )}
-      </div>
+        Get the channel
+      </Button>
+      {result && <p>{result}</p>}
+      {channelId && <p>Channel Id: {channelId}</p>}
+      {channelTitle && <p>Channel Title: {channelTitle}</p>}
+      {channelId && (
+        <Link to={`/games/${channelId}`}>
+          <Button>{`Go to games about ${channelTitle}`}</Button>
+        </Link>
+      )}
     </div>
   );
 };
