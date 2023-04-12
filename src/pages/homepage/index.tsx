@@ -19,7 +19,7 @@ const Homepage = (props: Props) => {
   const handleCheckVideo = async (url: string) => {
     const videoId = getVideoIdFromUrl(url);
     if (videoId) {
-      setResult("Channel Found");
+      setResult("Channel Found:");
     } else {
       setResult("Invalid video URL. Please enter a valid YouTube video URL.");
       setChannelId("");
@@ -42,33 +42,46 @@ const Homepage = (props: Props) => {
   };
 
   return (
-    <div
-      className={`${styles.innerWidth} flex flex-col py-8 gap-4 justify-center items-center`}
-    >
-      <p>Paste a video URL from your favorite youtube channel</p>
-      <input
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        id="username"
-        type="text"
-        placeholder="Video URL"
-        defaultValue={DEV_URL}
-        onChange={(e) => setVideoUrl(e.target.value)}
-      ></input>
-      <Button
-        onClick={() => handleCheckVideo(videoUrl)}
-        // ADD ON PROD
-        // disabled={videoUrl === ""}
-      >
-        Get the channel
-      </Button>
-      {result && <p>{result}</p>}
-      {channelId && <p>Channel Id: {channelId}</p>}
-      {channelTitle && <p>Channel Title: {channelTitle}</p>}
-      {channelId && (
-        <Link to={`/games/${channelId}`}>
-          <Button>{`Go to games about ${channelTitle}`}</Button>
-        </Link>
-      )}
+    <div className={`${styles.innerWidth} flex flex-col sm:flex-row`}>
+      <div className="flex w-full flex-col gap-4 py-8">
+        <p>
+          Welcome to Scene Struggle! Fun games about your favorite Youtube
+          channel to see if you're a real fan.
+        </p>
+        <p>
+          Choose from a range of games(1 for now), each with its own unique
+          challenge based on the content of the channel.
+        </p>
+        <p>Now start by entering the URL of one of their videos:</p>
+        <input
+          className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+          id="username"
+          type="text"
+          placeholder="Video URL"
+          defaultValue={DEV_URL}
+          onChange={(e) => setVideoUrl(e.target.value)}
+        ></input>
+        <Button
+          onClick={() => handleCheckVideo(videoUrl)}
+          // TODO: ADD ON PROD
+          // disabled={videoUrl === ""}
+        >
+          Get the channel
+        </Button>
+        {result && <div className="my-4 bg-primary p-0.5" />}
+        {result && <p>{result}</p>}
+        {/* {channelId && <p>Channel Id: {channelId}</p>} */}
+        {channelTitle && <p className="text-5xl">{channelTitle}</p>}
+        {channelId && (
+          <Link to={`/games/${channelId}`}>
+            <Button>{`Go to games about ${channelTitle}`}</Button>
+          </Link>
+        )}
+      </div>
+      <div className="flex w-full flex-col items-center p-4">
+        <img className="w-2/3" src="/youtube-icon.png" alt="" />
+        {/* TODO: ADD TO CREDITS https://unsplash.com/photos/QNOukv0Jx54 */}
+      </div>
     </div>
   );
 };

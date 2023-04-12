@@ -8,7 +8,7 @@
   /* Variables */
   --primary-font: "Prompt", sans-serif;
   --secondary-font: "Lato", sans-serif;
-  --primary-color: #d6ed17;
+  --primary-color: #ff0000;
   --secondary-color: #131117;
   --light-color: #f3f3f3;
 }
@@ -20,6 +20,7 @@ body {
   box-sizing: border-box;
   overflow-x: hidden;
 
+  font-size: large;
   font-family: var(--secondary-font);
   background-color: var(--secondary-color);
   color: var(--light-color);
