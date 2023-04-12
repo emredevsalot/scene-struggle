@@ -15,7 +15,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`${buttonBg} text-secondary font-bold py-2 px-4 rounded ${width}`}
+      className={`${buttonBg} rounded py-2 px-4 font-bold text-secondary transition-transform enabled:hover:scale-105 ${width}`}
       disabled={disabled}
       onClick={onClick}
     >

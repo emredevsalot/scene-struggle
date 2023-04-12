@@ -45,10 +45,10 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
 
   const buttonState = (answer: boolean) => {
     if (userAnswered !== questionNumber + 1) return;
-    if (answer) {
-      return "bg-green-600";
+    if (!answer) {
+      return "bg-primary";
     } else {
-      return "bg-red-600";
+      return "bg-green-600";
     }
   };
 
@@ -75,17 +75,17 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
+      <div className="flex w-full flex-col justify-start gap-4 px-16 text-center align-middle">
         <div className="overflow-hidden rounded">
           <img
             // className="blur-lg"
-            className="pixelated w-full h-full"
+            className="pixelated h-full w-full"
             src={randomVideos[questionNumber]?.snippet.thumbnails.default.url}
             alt=""
           />
         </div>
       </div>
-      <div className="flex flex-col gap-4 justify-start align-middle px-16 w-full text-center">
+      <div className="flex w-full flex-col justify-start gap-4 px-16 text-center align-middle">
         <div className="flex justify-between">
           <p>Score: {score}</p>
           <p>
