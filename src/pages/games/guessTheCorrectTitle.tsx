@@ -46,9 +46,9 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
   const buttonState = (answer: boolean) => {
     if (userAnswered !== questionNumber + 1) return;
     if (!answer) {
-      return "bg-primary";
+      return "outline-primary";
     } else {
-      return "bg-green-600";
+      return "outline-green-600";
     }
   };
 
@@ -97,7 +97,7 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
             key={index}
             disabled={userAnswered !== questionNumber ? true : false}
             width="w-full"
-            buttonBg={buttonState(
+            outlineColor={buttonState(
               answer === randomVideos[questionNumber].snippet.title
             )}
             onClick={() =>

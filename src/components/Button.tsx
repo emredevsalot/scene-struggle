@@ -3,7 +3,7 @@ type ButtonProps = {
   disabled?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   width?: "w-fit" | "w-full";
-  buttonBg?: string;
+  outlineColor?: string;
 };
 
 const Button = ({
@@ -11,11 +11,11 @@ const Button = ({
   disabled,
   onClick,
   width = "w-fit",
-  buttonBg = "bg-primary hover:bg-primary-700",
+  outlineColor = "",
 }: ButtonProps) => {
   return (
     <button
-      className={`${buttonBg} rounded py-2 px-4 font-bold text-secondary transition-transform enabled:hover:scale-105 ${width}`}
+      className={`${outlineColor} rounded py-2 px-4 outline transition-transform enabled:hover:scale-105 ${width}`}
       disabled={disabled}
       onClick={onClick}
     >
