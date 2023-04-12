@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import styles from "@/styles";
+import { ChannelType } from "@/types";
 import { fetchChannelInfo } from "@/utils/fetchFromAPI";
 import { getVideoIdFromUrl } from "@/utils/randomVideos";
 import Button from "@/components/Button";
@@ -12,8 +13,11 @@ const DEV_URL = "https://www.youtube.com/watch?v=NtfbWkxJTHw";
 
 const Homepage = (props: Props) => {
   const [videoUrl, setVideoUrl] = useState<string>(DEV_URL);
-  const [channelId, setChannelId] = useState<string>("");
-  const [channelTitle, setChannelTitle] = useState<string>("");
+  const [channel, setChannel] = useState<ChannelType>({
+    id: "",
+    title: "",
+  });
+
   const [result, setResult] = useState<string>("");
 
   const handleCheckVideo = async (url: string) => {
@@ -22,19 +26,15 @@ const Homepage = (props: Props) => {
       setResult("Channel Found:");
     } else {
       setResult("Invalid video URL. Please enter a valid YouTube video URL.");
-      setChannelId("");
-      setChannelTitle("");
+      setChannel({ id: "", title: "" });
       return;
     }
     try {
       const channelInfo = await fetchChannelInfo(videoId);
       const id = channelInfo?.items[0].snippet.channelId;
       const title = channelInfo?.items[0].snippet.channelTitle;
-      if (id) {
-        setChannelId(id);
-      }
-      if (title) {
-        setChannelTitle(title);
+      if (id && title) {
+        setChannel({ id: id, title: title });
       }
     } catch (error: any) {
       setResult("Error: " + error.message);
@@ -71,10 +71,10 @@ const Homepage = (props: Props) => {
         {result && <div className="my-4 bg-primary p-0.5" />}
         {result && <p>{result}</p>}
         {/* {channelId && <p>Channel Id: {channelId}</p>} */}
-        {channelTitle && <p className="text-5xl">{channelTitle}</p>}
-        {channelId && (
-          <Link to={`/games/${channelId}`}>
-            <Button>{`Go to games about ${channelTitle}`}</Button>
+        {channel.title && <p className="text-5xl">{channel.title}</p>}
+        {channel.id && (
+          <Link to={`/games/${channel.id}`} state={{ channel }}>
+            <Button>{`Go to games about ${channel.title}`}</Button>
           </Link>
         )}
       </div>

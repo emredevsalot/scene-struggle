@@ -57,4 +57,9 @@ type High = {
   height: number;
 };
 
-export type { YoutubeResponseType, Item };
+type ChannelType = {
+  id: string;
+  title: string;
+};
+
+export type { YoutubeResponseType, Item, ChannelType };

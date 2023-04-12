@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import styles from "@/styles";
-import { Item } from "@/types";
+import { ChannelType, Item } from "@/types";
 import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 import Button from "@/components/Button";
 
@@ -11,32 +11,40 @@ import GameTwo from "./gameTwo";
 
 type Props = {};
 
-// enum GameList {
-//   guessTheCorrectTitle = "Guess The Correct Title",
-//   gameTwo = "Game Two",
-// }
-// const gameIds = Object.keys(GameList);
-// const gameNames = Object.values(GameList);
-
 let games = {
   guessTheCorrectTitle: "Guess The Correct Title",
   gameTwo: "Game Two",
 };
 
 const Games = (props: Props) => {
-  let { channelId } = useParams();
+  // let { channelId } = useParams();
   const [videos, setVideos] = useState<Item[]>();
   const [gameOver, setGameOver] = useState(true);
   const [gameId, setGameId] = useState("");
 
+  const location = useLocation();
+  const [channel, setChannel] = useState<ChannelType>({
+    id: "",
+    title: "",
+  });
+
+  // Get channel data from the state on the homepage
   useEffect(() => {
+    if (location.state) {
+      setChannel(location.state.channel);
+    }
+  }, [location]);
+
+  // Fetch videos of the channel if there's a channel id
+  useEffect(() => {
+    if (!channel.id) return;
     fetchVideosFromChannel(
-      `search?part=snippet&channelId=${channelId}&order=date`,
+      `search?part=snippet&channelId=${channel.id}&order=date`,
       3
     ).then((videos) => {
       setVideos(videos);
     });
-  }, [channelId]);
+  }, [channel.id]);
 
   const startGame = (gameId: string) => {
     setGameOver(false);
@@ -45,14 +53,18 @@ const Games = (props: Props) => {
 
   return (
     <div
-      className={`${styles.innerWidth} flex flex-col md:flex-row py-8 gap-4 justify-center align-middle`}
+      className={`${styles.innerWidth} flex flex-col justify-center gap-4 py-8 align-middle md:flex-row`}
     >
-      {gameOver &&
-        Object.entries(games).map(([gameId, gameName]) => (
-          <Button key={gameId} onClick={() => startGame(gameId)}>
-            {gameName}
-          </Button>
-        ))}
+      {gameOver && (
+        <div className="flex flex-col items-center gap-8">
+          <div>Games about {channel.title}:</div>
+          {Object.entries(games).map(([gameId, gameName]) => (
+            <Button key={gameId} onClick={() => startGame(gameId)}>
+              {gameName}
+            </Button>
+          ))}
+        </div>
+      )}
 
       {!gameOver && gameId === "guessTheCorrectTitle" && (
         <GuessTheCorrectTitle videos={videos!} />
