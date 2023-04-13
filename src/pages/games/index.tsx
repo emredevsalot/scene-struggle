@@ -7,13 +7,13 @@ import { fetchVideosFromChannel } from "@/utils/fetchFromAPI";
 import Button from "@/components/Button";
 
 import GuessTheCorrectTitle from "./guessTheCorrectTitle";
-import GameTwo from "./gameTwo";
+import WhichIsNewer from "./whichIsNewer";
 
 type Props = {};
 
 let games = {
   guessTheCorrectTitle: "Guess The Correct Title",
-  gameTwo: "Game Two",
+  whichIsNewer: "Which Is Newer?",
 };
 
 const Games = (props: Props) => {
@@ -66,10 +66,12 @@ const Games = (props: Props) => {
         </div>
       )}
 
-      {!gameOver && gameId === "guessTheCorrectTitle" && (
+      {!gameOver && gameId === Object.keys(games)[0] && (
         <GuessTheCorrectTitle videos={videos!} />
       )}
-      {!gameOver && gameId === "gameTwo" && <GameTwo videos={videos!} />}
+      {!gameOver && gameId === Object.keys(games)[1] && (
+        <WhichIsNewer videos={videos!} />
+      )}
     </div>
   );
 };

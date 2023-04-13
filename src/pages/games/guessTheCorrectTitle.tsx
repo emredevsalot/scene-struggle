@@ -22,7 +22,7 @@ const GuessTheCorrectTitle = ({ videos }: Props) => {
 
   useEffect(() => {
     const { randomVideos, allAnswers } = getRandomVideos(
-      videos!,
+      videos,
       TOTAL_QUESTIONS
     );
     setRandomVideos(randomVideos);

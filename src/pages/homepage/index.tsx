@@ -51,7 +51,7 @@ const Homepage = (props: Props) => {
           a real fan.
         </p>
         <p>
-          Choose from a range of games(1 for now), each with its own unique
+          Choose from a range of games(2 for now), each with its own unique
           challenge based on the content of the channel.
         </p>
         <div className="my-3 bg-primary p-0.5" />

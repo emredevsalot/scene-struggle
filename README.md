@@ -2,7 +2,7 @@
 
 Welcome to Scene Struggle! Fun games about your favorite Youtube channel to see if you're a real fan.
 
-Choose from a range of games(1 for now), each with its own unique challenge based on the content of the channel.
+Choose from a range of games(2 for now), each with its own unique challenge based on the content of the channel.
 
 ## Screenshots
 

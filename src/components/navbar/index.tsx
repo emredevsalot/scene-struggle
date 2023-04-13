@@ -4,7 +4,7 @@ type Props = {};
 
 const Navbar = (props: Props) => {
   return (
-    <nav className="flex min-h-[15vh] items-center bg-secondary">
+    <nav className="flex min-h-[10vh] items-center bg-secondary">
       <div
         className={`${styles.innerWidth} flex items-center justify-center gap-8`}
       >
