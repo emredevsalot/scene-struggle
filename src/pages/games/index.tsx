@@ -71,10 +71,10 @@ const Games = (props: Props) => {
       )}
 
       {!gameOver && gameId === Object.keys(games)[0] && (
-        <GuessTheCorrectTitle videos={videos!} />
+        <GuessTheCorrectTitle videos={videos!} setGameId={setGameId} />
       )}
       {!gameOver && gameId === Object.keys(games)[1] && (
-        <WhichIsNewer videos={videos!} />
+        <WhichIsNewer videos={videos!} setGameId={setGameId} />
       )}
     </div>
   );

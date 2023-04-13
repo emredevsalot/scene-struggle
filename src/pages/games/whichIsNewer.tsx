@@ -12,11 +12,12 @@ import Button from "@/components/Button";
 
 type Props = {
   videos: Item[];
+  setGameId: React.Dispatch<React.SetStateAction<string>>;
 };
 
 const TOTAL_QUESTIONS = 6;
 
-const WhichIsNewer = ({ videos }: Props) => {
+const WhichIsNewer = ({ videos, setGameId }: Props) => {
   const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(0);
   const [userAnswered, setUserAnswered] = useState(0);
@@ -141,6 +142,12 @@ const WhichIsNewer = ({ videos }: Props) => {
             <p>{lastAnswer ? "Correct!✔️" : "Wrong!❌"}</p>
             <Button onClick={startGame} width="w-full">
               Play Again
+            </Button>
+            <Button
+              onClick={() => setGameId("guessTheCorrectTitle")}
+              width="w-full"
+            >
+              Play Guess The Correct Title
             </Button>
           </>
         )}
