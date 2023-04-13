@@ -1,10 +1,8 @@
-
 # Scene Struggle
 
 Welcome to Scene Struggle! Fun games about your favorite Youtube channel to see if you're a real fan.
 
 Choose from a range of games(1 for now), each with its own unique challenge based on the content of the channel.
-
 
 ## Screenshots
 
@@ -24,6 +22,14 @@ Play
 
 ![App Screenshot](https://i.ibb.co/Sx1DL4r/ss4.png)
 
+## Installation
+
+This project is initialized with Vite, you can follow the steps after cloning the project.
+
+```bash
+  npm install
+  npm run dev
+```
 
 ## Environment Variables
 
@@ -32,4 +38,3 @@ To run this project, you will need to add the following environment variables to
 `VITE_REACT_APP_RAPID_API_KEY`
 
 You can get it from: https://rapidapi.com/ytdlfree/api/youtube-v31
-
