@@ -42,16 +42,18 @@ const Homepage = (props: Props) => {
   };
 
   return (
-    <div className={`${styles.innerWidth} flex flex-col py-16 sm:flex-row`}>
-      <div className="flex w-full flex-col gap-4">
+    <div className={`${styles.innerWidth} flex flex-col py-8 sm:flex-row`}>
+      <div className="flex w-full flex-col gap-4 px-16 text-center">
+        <p className="text-3xl">Welcome to Scene Struggle!</p>
         <p>
-          Welcome to Scene Struggle! Fun games about your favorite Youtube
-          channel to see if you're a real fan.
+          Fun games about your favorite Youtube channel <br /> to see if you're
+          a real fan.
         </p>
         <p>
           Choose from a range of games(1 for now), each with its own unique
           challenge based on the content of the channel.
         </p>
+        <div className="my-3 bg-primary p-0.5" />
         <p>Now start by entering the URL of one of their videos:</p>
         <input
           className="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
@@ -63,6 +65,7 @@ const Homepage = (props: Props) => {
         ></input>
         <Button
           onClick={() => handleCheckVideo(videoUrl)}
+          width="w-full"
           // TODO: ADD ON PROD
           // disabled={videoUrl === ""}
         >
@@ -78,7 +81,7 @@ const Homepage = (props: Props) => {
           </Link>
         )}
       </div>
-      <div className="flex w-full flex-col items-center">
+      <div className="flex w-full flex-col items-center px-4">
         <img className="w-2/3" src="/youtube-icon.png" alt="" />
         {/* TODO: ADD TO CREDITS https://unsplash.com/photos/QNOukv0Jx54 */}
       </div>
