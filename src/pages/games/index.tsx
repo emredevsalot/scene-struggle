@@ -59,7 +59,11 @@ const Games = (props: Props) => {
         <div className="flex flex-col items-center gap-8">
           <div>Games about {channel.title}:</div>
           {Object.entries(games).map(([gameId, gameName]) => (
-            <Button key={gameId} onClick={() => startGame(gameId)}>
+            <Button
+              key={gameId}
+              onClick={() => startGame(gameId)}
+              disabled={!videos}
+            >
               {gameName}
             </Button>
           ))}
