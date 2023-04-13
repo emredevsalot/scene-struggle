@@ -9,6 +9,7 @@ import Button from "@/components/Button";
 
 type Props = {};
 
+// TODO: Development URL for quick testing, videoUrl state will be empty in production
 const DEV_URL = "https://www.youtube.com/watch?v=NtfbWkxJTHw";
 
 const Homepage = (props: Props) => {

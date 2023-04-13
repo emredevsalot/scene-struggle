@@ -1,3 +1,5 @@
+// Youtube Response Type
+
 type YoutubeResponseType = {
   kind: string;
   nextPageToken: string;
@@ -56,6 +58,8 @@ type High = {
   width: number;
   height: number;
 };
+
+// Channel Type
 
 type ChannelType = {
   id: string;

@@ -4,7 +4,7 @@ import App from "./App";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  // Deactivated because of useEffect running twice
+  // TODO: Deactivated because of useEffect running twice in dev, try enabling in prod.
   // <React.StrictMode>
   <App />
   // </React.StrictMode>,

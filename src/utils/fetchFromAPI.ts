@@ -25,6 +25,7 @@ export const fetchVideosFromChannel = async (
   let responseData: YoutubeResponseType | undefined = undefined;
 
   while (true) {
+    // TODO:
     console.log("entered while(true)");
     i++;
     if (responseData) {
@@ -36,6 +37,7 @@ export const fetchVideosFromChannel = async (
 
     // Exit condition (no more pagination thing to repeat)
     if (!("nextPageToken" in responseData!) || i == maxPageCount) {
+      // TODO:
       console.log(videos);
 
       break;
