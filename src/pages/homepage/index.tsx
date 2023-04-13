@@ -42,8 +42,8 @@ const Homepage = (props: Props) => {
   };
 
   return (
-    <div className={`${styles.innerWidth} flex flex-col sm:flex-row`}>
-      <div className="flex w-full flex-col gap-4 py-8">
+    <div className={`${styles.innerWidth} flex flex-col py-16 sm:flex-row`}>
+      <div className="flex w-full flex-col gap-4">
         <p>
           Welcome to Scene Struggle! Fun games about your favorite Youtube
           channel to see if you're a real fan.
@@ -78,7 +78,7 @@ const Homepage = (props: Props) => {
           </Link>
         )}
       </div>
-      <div className="flex w-full flex-col items-center p-4">
+      <div className="flex w-full flex-col items-center">
         <img className="w-2/3" src="/youtube-icon.png" alt="" />
         {/* TODO: ADD TO CREDITS https://unsplash.com/photos/QNOukv0Jx54 */}
       </div>
