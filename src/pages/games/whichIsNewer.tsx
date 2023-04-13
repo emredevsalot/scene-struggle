@@ -88,7 +88,10 @@ const WhichIsNewer = ({ videos }: Props) => {
         <div className="flex gap-8">
           <div className="flex w-96 flex-col gap-2">
             <img src={randomVideos[0]?.snippet.thumbnails.medium.url} alt="" />
-            <div>{he.decode(randomVideos[0]?.snippet.title)}</div>
+            <div>
+              {randomVideos[0] !== undefined &&
+                he.decode(randomVideos[0]?.snippet.title)}
+            </div>
 
             <Button
               children="This is newer"
@@ -104,7 +107,10 @@ const WhichIsNewer = ({ videos }: Props) => {
           </div>
           <div className="flex w-96 flex-col gap-2">
             <img src={randomVideos[1]?.snippet.thumbnails.medium.url} alt="" />
-            <div>{he.decode(randomVideos[1]?.snippet.title)}</div>
+            <div>
+              {randomVideos[1] !== undefined &&
+                he.decode(randomVideos[1]?.snippet.title)}
+            </div>
 
             <Button
               children="This is newer"
