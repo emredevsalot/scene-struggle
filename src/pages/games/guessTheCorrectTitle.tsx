@@ -20,6 +20,7 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
   const [lastAnswer, setLastAnswer] = useState(false);
   const [randomVideos, setRandomVideos] = useState<Item[]>([]);
   const [allAnswers, setAllAnswers] = useState<string[][]>([]);
+  const [progressBar, setProgressBar] = useState<boolean[]>([]);
 
   useEffect(() => {
     const { randomVideos, allAnswers } = getRandomVideos(
@@ -35,6 +36,7 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
     setScore(0);
     setQuestionNumber(0);
     setUserAnswered(0);
+    setProgressBar([]);
     setLastAnswer(false);
     const { randomVideos, allAnswers } = getRandomVideos(
       videos!,
@@ -53,13 +55,24 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
     }
   };
 
+  const progressBarState = (progressBar: boolean) => {
+    if (progressBar == null) return "bg-secondary-800";
+    if (progressBar) {
+      return "bg-green-600";
+    } else {
+      return "bg-primary";
+    }
+  };
+
   const checkAnswer = (answer: boolean) => {
     // if (gameOver) return;
     if (answer) {
       setScore((prev) => prev + 1);
       setLastAnswer(true);
+      setProgressBar([...progressBar, true]);
     } else {
       setLastAnswer(false);
+      setProgressBar([...progressBar, false]);
     }
     console.log("pressed");
     setUserAnswered((num) => num + 1);
@@ -87,6 +100,20 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
         </div>
       </div>
       <div className="flex w-full flex-col justify-start gap-4 px-16 text-center align-middle">
+        <div className="flex gap-1">
+          {Array.from(Array(TOTAL_QUESTIONS), (e, i) => {
+            return (
+              <div
+                key={i}
+                className={`flex h-1 flex-1 ${progressBarState(
+                  progressBar[i]
+                )}`}
+              >
+                {/* {progress[i] != null ? (progress[i] ? "tru" : "fals") : "null"} */}
+              </div>
+            );
+          })}
+        </div>
         <div className="flex justify-between">
           <p>Score: {score}</p>
           <p>
