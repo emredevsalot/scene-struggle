@@ -56,6 +56,11 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
     }
   };
 
+  const imageState = () => {
+    if (userAnswered === questionNumber + 1) return;
+    return "blur-md";
+  };
+
   const checkAnswer = (answer: boolean) => {
     // if (gameOver) return;
     if (answer) {
@@ -84,9 +89,8 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
       <div className="flex w-full flex-col justify-start gap-4 px-16 text-center align-middle">
         <div className="overflow-hidden rounded">
           <img
-            // className="blur-lg"
-            className="pixelated h-full w-full"
-            src={randomVideos[questionNumber]?.snippet.thumbnails.default.url}
+            className={`h-full w-full ${imageState()}`}
+            src={randomVideos[questionNumber]?.snippet.thumbnails.high.url}
             alt=""
           />
         </div>
