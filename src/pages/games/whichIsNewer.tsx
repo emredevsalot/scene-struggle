@@ -9,6 +9,7 @@ import {
   getRandomVideos,
 } from "@/utils/randomVideos";
 import Button from "@/components/Button";
+import ProgressBar from "@/components/ProgressBar";
 
 type Props = {
   videos: Item[];
@@ -92,18 +93,10 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex gap-1">
-          {Array.from(Array(TOTAL_QUESTIONS), (e, i) => {
-            return (
-              <div
-                key={i}
-                className={`flex h-1 flex-1 ${progressBarState(
-                  progressBar[i]
-                )}`}
-              />
-            );
-          })}
-        </div>
+        <ProgressBar
+          TOTAL_QUESTIONS={TOTAL_QUESTIONS}
+          progressBar={progressBar}
+        />
         <div className="flex justify-between">
           <p>Score: {score}</p>
           <p>

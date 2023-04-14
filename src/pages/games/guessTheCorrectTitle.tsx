@@ -5,6 +5,7 @@ import he from "he";
 import { Item } from "@/types";
 import { getRandomVideos } from "@/utils/randomVideos";
 import Button from "@/components/Button";
+import ProgressBar from "@/components/ProgressBar";
 
 type Props = {
   videos: Item[];
@@ -100,18 +101,10 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
         </div>
       </div>
       <div className="flex w-full flex-col justify-start gap-4 px-16 text-center align-middle">
-        <div className="flex gap-1">
-          {Array.from(Array(TOTAL_QUESTIONS), (e, i) => {
-            return (
-              <div
-                key={i}
-                className={`flex h-1 flex-1 ${progressBarState(
-                  progressBar[i]
-                )}`}
-              />
-            );
-          })}
-        </div>
+        <ProgressBar
+          TOTAL_QUESTIONS={TOTAL_QUESTIONS}
+          progressBar={progressBar}
+        />
         <div className="flex justify-between">
           <p>Score: {score}</p>
           <p>
