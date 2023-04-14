@@ -23,6 +23,8 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
   const [userAnswered, setUserAnswered] = useState(0);
   const [lastAnswer, setLastAnswer] = useState(false);
   const [randomVideos, setRandomVideos] = useState<Item[]>([]);
+  const [progressBar, setProgressBar] = useState<boolean[]>([]);
+
   const [firstDateLatest, setFirstDateLatest] = useState<boolean>();
 
   useEffect(() => {
@@ -42,6 +44,7 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
     setQuestionNumber(0);
     setUserAnswered(0);
     setLastAnswer(false);
+    setProgressBar([]);
     const { randomVideos } = getRandomVideos(videos!, TOTAL_QUESTIONS);
     setRandomVideos(randomVideos);
   };
@@ -55,12 +58,23 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
     }
   };
 
+  const progressBarState = (progressBar: boolean) => {
+    if (progressBar == null) return "bg-secondary-800";
+    if (progressBar) {
+      return "bg-green-600";
+    } else {
+      return "bg-primary";
+    }
+  };
+
   const checkAnswer = (answer: boolean | undefined) => {
     if (answer) {
       setScore((prev) => prev + 1);
       setLastAnswer(true);
+      setProgressBar([...progressBar, true]);
     } else {
       setLastAnswer(false);
+      setProgressBar([...progressBar, false]);
     }
     console.log("pressed");
     setUserAnswered((num) => num + 1);
@@ -78,6 +92,18 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
   return (
     <>
       <div className="flex flex-col gap-4">
+        <div className="flex gap-1">
+          {Array.from(Array(TOTAL_QUESTIONS), (e, i) => {
+            return (
+              <div
+                key={i}
+                className={`flex h-1 flex-1 ${progressBarState(
+                  progressBar[i]
+                )}`}
+              />
+            );
+          })}
+        </div>
         <div className="flex justify-between">
           <p>Score: {score}</p>
           <p>

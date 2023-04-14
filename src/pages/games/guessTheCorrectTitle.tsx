@@ -108,9 +108,7 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
                 className={`flex h-1 flex-1 ${progressBarState(
                   progressBar[i]
                 )}`}
-              >
-                {/* {progress[i] != null ? (progress[i] ? "tru" : "fals") : "null"} */}
-              </div>
+              />
             );
           })}
         </div>
