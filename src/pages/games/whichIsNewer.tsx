@@ -59,15 +59,6 @@ const WhichIsNewer = ({ videos, setGameId }: Props) => {
     }
   };
 
-  const progressBarState = (progressBar: boolean) => {
-    if (progressBar == null) return "bg-secondary-800";
-    if (progressBar) {
-      return "bg-green-600";
-    } else {
-      return "bg-primary";
-    }
-  };
-
   const checkAnswer = (answer: boolean | undefined) => {
     if (answer) {
       setScore((prev) => prev + 1);

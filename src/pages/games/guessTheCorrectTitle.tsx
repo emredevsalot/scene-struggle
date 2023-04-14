@@ -56,15 +56,6 @@ const GuessTheCorrectTitle = ({ videos, setGameId }: Props) => {
     }
   };
 
-  const progressBarState = (progressBar: boolean) => {
-    if (progressBar == null) return "bg-secondary-800";
-    if (progressBar) {
-      return "bg-green-600";
-    } else {
-      return "bg-primary";
-    }
-  };
-
   const checkAnswer = (answer: boolean) => {
     // if (gameOver) return;
     if (answer) {
