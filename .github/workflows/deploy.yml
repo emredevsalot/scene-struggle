@@ -8,9 +8,6 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-  
-env:
-  VITE_REACT_APP_RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
@@ -42,6 +39,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_REACT_APP_RAPID_API_KEY: ${{ secrets.RAPID_API_KEY }}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
