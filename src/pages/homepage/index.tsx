@@ -86,7 +86,7 @@ const Homepage = (props: Props) => {
         )}
       </div>
       <div className="flex w-full flex-col items-center px-4">
-        <img className="w-2/3" src="/youtube-icon.png" alt="" />
+        <img className="w-2/3" src="./youtube-icon.png" alt="" />
         {/* TODO: ADD TO CREDITS https://unsplash.com/photos/QNOukv0Jx54 */}
       </div>
     </div>
