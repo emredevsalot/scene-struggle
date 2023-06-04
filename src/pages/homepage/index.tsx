@@ -77,7 +77,10 @@ const Homepage = (props: Props) => {
         {/* {channelId && <p>Channel Id: {channelId}</p>} */}
         {channel.title && <p className="text-5xl">{channel.title}</p>}
         {channel.id && (
-          <Link to={`/games/${channel.title}`} state={{ channel }}>
+          <Link
+            to={`/scene-struggle/games/${channel.title}`}
+            state={{ channel }}
+          >
             <Button>{`Go to games about ${channel.title}`}</Button>
           </Link>
         )}

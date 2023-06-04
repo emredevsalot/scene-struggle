@@ -9,8 +9,8 @@ function App() {
       <div className="bg-secondary">
         <Navbar />
         <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/games/:channelId" element={<Games />} />
+          <Route path="/scene-struggle/" element={<Homepage />} />
+          <Route path="/scene-struggle/games/:channelId" element={<Games />} />
         </Routes>
       </div>
     </BrowserRouter>
